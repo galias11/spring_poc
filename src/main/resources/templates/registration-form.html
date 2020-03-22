@@ -1,0 +1,118 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
+<head>
+    <meta name="viewport" content="width = device-width, initial-scale = 1, shrink-to-fit = no">
+    <meta charset="UTF-8">
+    <title>BM test project</title>
+
+    <style>
+        input, label {
+            font-family: arial, sans-serif;
+            display: block;
+        }
+
+        label {
+            font-size: 16px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        input {
+            font-size: 16px;
+            margin-bottom: 30px;
+            text-align: center;
+
+            width: 400px;
+
+            border: none;
+
+            border-bottom: 1px solid grey;
+        }
+
+        .main-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 100vw;
+            text-align: center;
+        }
+
+        input:focus {
+            outline: none;
+            border-bottom: 1px solid green;
+        }
+
+        .submit-button {
+            cursor: pointer;
+            border: none;
+            outline: none;
+            background-color: green;
+            color: white;
+            padding: 10px;
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        .submit-button:focus {
+            border-bottom: none;
+        }
+    </style>
+
+    <script>
+        const setPasswordMatchError = () => {
+            const mainDiv = document.getElementById("main");
+            const paragraph = document.createElement("p");
+            paragraph.innerText = "Passwords do not match!";
+            mainDiv.appendChild(paragraph);
+        }
+
+        const onSubmit = () => {
+            const password = document.getElementById("password").value;
+            const confirmPassword = document.getElementById("confirm_password").value;
+
+            if(password !== confirmPassword) {
+                setPasswordMatchError()
+                return;
+            }
+
+            const userName = document.getElementById("user_name").value;
+            const firstName = document.getElementById("first_name").value;
+            const lastName = document.getElementById("first_name").value;
+
+            fetch(
+                "http://localhost:8080/services/add",
+                {
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    method: "POST",
+                    body: JSON.stringify({
+                        userName,
+                        firstName,
+                        lastName,
+                        password
+                    })
+                }
+            )
+                .then(response => response.json())
+                .then(responseData => console.log(responseData))
+                .catch(err => console.log(err));
+        }
+    </script>
+</head>
+<body>
+    <div id="main" class="main-container">
+        <label for="user_name">User name</label>
+        <input required type="text" id="user_name" placeholder="User name"/>
+        <label for="first_name">First name</label>
+        <input required type="text" id="first_name" placeholder="First name"/>
+        <label for="last_name">Last name</label>
+        <input required type="text" id="last_name" placeholder="Last name"/>
+        <label for="password">Password</label>
+        <input required id="password" type="password"/>
+        <label for="confirm_password">Confirm password</label>
+        <input required id="confirm_password" type="password"/>
+        <button class="submit-button" onclick="onSubmit()" > Create user! </button>
+    </div>
+</body>
+</html>

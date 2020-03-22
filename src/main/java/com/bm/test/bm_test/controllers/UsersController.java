@@ -1,41 +1,41 @@
 package com.bm.test.bm_test.controllers;
 
 // vendors
+import com.bm.test.bm_test.config.Messages;
+import com.bm.test.bm_test.model.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 // local
-import com.bm.test.bm_test.model.UserForm;
-import com.bm.test.bm_test.model.ServiceException;
+import com.bm.test.bm_test.interfaces.ResponseData;
 import com.bm.test.bm_test.services.UserService;
-import com.bm.test.bm_test.model.User;
 import com.bm.test.bm_test.db.UserRepository;
 
 @Controller // This means that this class is a Controller
-@RequestMapping(path="/demo") // This means URL's start with /demo (after Application path)
+@RequestMapping(path="/services")
 public class UsersController {
     @Autowired
     private UserRepository userRepository;
     private UserService userService = new UserService();
 
-    @PostMapping(path="/add") // Map ONLY POST Requests
-    public @ResponseBody String addNewUser(@RequestBody UserForm userForm) {
-        // @ResponseBody means the returned String is the response, not a view name
-        // @RequestParam means it is a parameter from the GET or POST request
-
+    @PostMapping(path="/add")
+    public @ResponseBody ResponseEntity addNewUser(@RequestBody UserForm userForm) {
         try {
             userService.saveUser(userRepository, userForm);
         } catch (ServiceException e) {
-            return "chanfle";
+            ResponseData responseData = new ErrorResponseData(e.getErrorCode(), e.getErrorDescription());
+            return (new Response(HttpStatus.BAD_REQUEST, responseData)).getResponse();
         }
 
-        return "Saved";
+        ResponseData responseData = new SuccessResponseData(Messages.USERS_REGISTER_SUCCESS);
+        return (new Response(HttpStatus.OK, responseData)).getResponse();
     }
 
     @GetMapping(path="/all")
     public @ResponseBody Iterable<User> getAllUsers() {
-        // This returns a JSON or XML with the users
         return userRepository.findAll();
     }
 }

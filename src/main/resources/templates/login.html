@@ -6,7 +6,7 @@
     <title>BM test project</title>
 
     <style>
-        input, label {
+        input, label, a {
             font-family: arial, sans-serif;
             display: block;
         }
@@ -42,6 +42,13 @@
             border-bottom: 1px solid green;
         }
 
+        a {
+            font-size: 14px;
+            color: green;
+            font-weight: bolder;
+            margin-bottom: 15px;
+        }
+
         .submit-button {
             cursor: pointer;
             border: none;
@@ -64,6 +71,12 @@
             const paragraph = document.createElement("p");
             paragraph.innerText = "Passwords do not match!";
             mainDiv.appendChild(paragraph);
+        }
+
+        const setCookie = (name, value, minutes) => {
+            const date = new Date();
+            date.setTime(date.getTime() + 60 * 1000 * minutes );
+            document.cookie = name + "=" + value + ";path=/;expires=" + date.toGMTString();
         };
 
         const onFailureResponse = (response) => {
@@ -75,8 +88,7 @@
         const onSuccess = (response) => {
             response.json()
                 .then(responseData => {
-                    window.alert("User has been created.");
-                    window.location = "/login";
+                    setCookie("bm_test", responseData.data.accessToken, 5);
                  });
         };
 
@@ -88,20 +100,11 @@
         };
 
         const onSubmit = () => {
-            const password = document.getElementById("password").value;
-            const confirmPassword = document.getElementById("confirm_password").value;
-
-            if(password !== confirmPassword) {
-                setPasswordMatchError()
-                return;
-            }
-
             const userName = document.getElementById("user_name").value;
-            const firstName = document.getElementById("first_name").value;
-            const lastName = document.getElementById("last_name").value;
+            const password = document.getElementById("password").value;
 
             fetch(
-                "/api/register",
+                "http://localhost:8080/api/login",
                 {
                     headers: {
                         "Content-Type": "application/json"
@@ -109,8 +112,6 @@
                     method: "POST",
                     body: JSON.stringify({
                         userName,
-                        firstName,
-                        lastName,
                         password
                     })
                 }
@@ -129,18 +130,13 @@
     </script>
 </head>
 <body>
-    <div id="main" class="main-container">
-        <label for="user_name">User name</label>
-        <input required type="text" id="user_name" placeholder="User name"/>
-        <label for="first_name">First name</label>
-        <input required type="text" id="first_name" placeholder="First name"/>
-        <label for="last_name">Last name</label>
-        <input required type="text" id="last_name" placeholder="Last name"/>
-        <label for="password">Password</label>
-        <input required id="password" type="password"/>
-        <label for="confirm_password">Confirm password</label>
-        <input required id="confirm_password" type="password"/>
-        <button class="submit-button" onclick="onSubmit()" > Create user! </button>
-    </div>
+<div id="main" class="main-container">
+    <label for="user_name">User name</label>
+    <input required type="text" id="user_name" placeholder="User name"/>
+    <label for="password">Password</label>
+    <input required id="password" type="password"/>
+    <a href="/register">Create new user!</a>
+    <button class="submit-button" onclick="onSubmit()" > Login </button>
+</div>
 </body>
 </html>

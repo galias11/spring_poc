@@ -6,11 +6,11 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
-public class RegistrationController {
+public class LoginController {
 
-    @GetMapping(path="/register")
-    public ModelAndView getRegistrationForm() {
-        String viewName = "registration-form";
+    @GetMapping(path="/login")
+    public ModelAndView getLogin() {
+        String viewName = "login";
         return new ModelAndView(viewName);
     }
 }

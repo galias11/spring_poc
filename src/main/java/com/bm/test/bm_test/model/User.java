@@ -44,6 +44,8 @@ public class User {
         return lastName;
     }
 
+    public String getEncryptedPassword() { return password; }
+
     public List<Video> getFavVideos() {
         return favVideos;
     }

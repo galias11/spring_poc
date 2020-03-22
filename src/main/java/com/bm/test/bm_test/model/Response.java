@@ -7,7 +7,6 @@ import org.springframework.http.ResponseEntity;
 
 // locals
 import com.bm.test.bm_test.config.Messages;
-import com.bm.test.bm_test.interfaces.ResponseData;
 
 public class Response {
     private HttpStatus status;
@@ -23,12 +22,7 @@ public class Response {
     }
 
     public ResponseEntity getResponse() {
-        try {
-            ResponseEntity response = ResponseEntity.status(this.status).body(this.responseData.getData());
-            return response;
-        } catch (JsonProcessingException e) {
-            ResponseEntity response = ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(Messages.INTERNAL_ERROR.getDescription());
-            return response;
-        }
+        ResponseEntity response = ResponseEntity.status(this.status).body(this.responseData.getData());
+        return response;
     }
 }

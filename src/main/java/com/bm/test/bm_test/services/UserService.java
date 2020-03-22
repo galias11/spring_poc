@@ -35,7 +35,7 @@ public class UserService {
         return new User(userForm.getUserName(), userForm.getFirstName(), userForm.getLastName(), encryptedPassword);
     }
 
-    public void saveUser(UserRepository userRepository, UserForm userForm)
+    public void saveUser(UserForm userForm)
         throws ServiceException
     {
         User newUser = this.createUser(userForm);

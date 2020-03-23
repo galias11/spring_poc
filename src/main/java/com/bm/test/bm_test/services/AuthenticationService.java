@@ -1,27 +1,27 @@
 package com.bm.test.bm_test.services;
 
 // vendors
-import com.auth0.jwt.JWT;
-import com.auth0.jwt.algorithms.Algorithm;
-import com.bm.test.bm_test.constants.Security;
-import com.bm.test.bm_test.model.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import java.util.HashMap;
 
 // local
+import com.bm.test.bm_test.config.JwtTokenProvider;
 import com.bm.test.bm_test.config.SpringUtils;
 import com.bm.test.bm_test.constants.Constants;
 import com.bm.test.bm_test.db.UserRepository;
 import com.bm.test.bm_test.config.Messages;
+import com.bm.test.bm_test.model.*;
 
-import java.util.Date;
-import java.util.HashMap;
+import javax.annotation.PostConstruct;
 
 @Service
 public class AuthenticationService {
     @Autowired
     private UserRepository userRepository;
+
+    private JwtTokenProvider jwtTokenProvider = new JwtTokenProvider();
     private final BCryptPasswordEncoder pwdEncoder;
 
     public AuthenticationService() {
@@ -37,17 +37,10 @@ public class AuthenticationService {
         return pwdEncoder.matches(loginForm.getPassword(), user.getEncryptedPassword());
     }
 
-    private String generateJWTToken(User user) {
-        String accessToken = JWT.create()
-                .withSubject(user.toString())
-                .withExpiresAt(new Date(System.currentTimeMillis() + Security.EXPIRATION_TIME))
-                .sign(Algorithm.HMAC256(Security.SECRET));
-        return accessToken;
-    }
-
     public HashMap<String, String> authenticate(LoginForm loginForm)
             throws ServiceException
     {
+        System.out.println(jwtTokenProvider);
         User user = this.getUser(loginForm);
 
         if(user == null) {
@@ -59,7 +52,7 @@ public class AuthenticationService {
         }
 
         HashMap<String, String> response = new HashMap<String, String>();
-        response.put("accessToken", generateJWTToken(user));
+        response.put("accessToken", jwtTokenProvider.generateJWTToken(user));
         return response;
     }
 }

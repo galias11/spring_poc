@@ -12,15 +12,12 @@ import org.springframework.web.bind.annotation.*;
 import com.bm.test.bm_test.constants.Constants;
 import com.bm.test.bm_test.model.*;
 import com.bm.test.bm_test.services.AuthenticationService;
-import com.bm.test.bm_test.db.UserRepository;
 
 import java.util.HashMap;
 
 @Controller
-@RequestMapping(path="/api")
+@RequestMapping(path="/api/public")
 public class AuthenticationController {
-    @Autowired
-    private UserRepository userRepository;
     private AuthenticationService authenticationService = new AuthenticationService();
 
     private ResponseEntity mapErrorResponse(ServiceException exception) {
@@ -43,7 +40,7 @@ public class AuthenticationController {
     }
 
     @PostMapping(path="/login", produces = MediaType.APPLICATION_JSON_VALUE)
-    public @ResponseBody ResponseEntity addNewUser(@RequestBody LoginForm loginForm) {
+    public @ResponseBody ResponseEntity authenticateUser(@RequestBody LoginForm loginForm) {
         HashMap<String, String> tokenData;
         try {
             tokenData = authenticationService.authenticate(loginForm);

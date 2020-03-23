@@ -1,0 +1,186 @@
+<html
+        lang="en"
+        xmlns:th="http://www.w3.org/1999/xhtml"
+        xmlns:form="http://www.w3.org/1999/xhtml">
+<head>
+    <meta name="viewport" content="width = device-width, initial-scale = 1, shrink-to-fit = no">
+    <meta charset="UTF-8">
+    <title>BM test project</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        input, p, a {
+            font-family: arial, sans-serif;
+            display: block;
+        }
+
+        input {
+            font-size: 16px;
+            margin-bottom: 30px;
+            text-align: center;
+
+            width: 100%;
+
+            border: none;
+
+            border-bottom: 1px solid grey;
+        }
+
+        .form-container {
+            position: relative;
+            min-width: 300px;
+            text-align: center;
+        }
+
+        .main-container {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-around;
+            max-width: 1200px;
+            margin: 15px auto;
+            padding: 20px;
+        }
+
+        .movie-form-list-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 55%;
+            border: 2px solid green;
+            padding: 20px;
+            border-radius: 5px;
+
+        }
+
+        .fav-list-container {
+            width: 35%;
+            border: 2px solid green;
+            padding: 20px;
+            border-radius: 5px;
+        }
+
+        .add-video-button {
+            cursor: pointer;
+            border: none;
+            outline: none;
+            background-color: green;
+            color: white;
+            padding: 10px;
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        .videos-title-text {
+             font-family: arial, sans-serif;
+             color: dark-grey;
+             font-size: 18px;
+             font-weight: bold;
+        }
+
+        .video-name {
+            display: block;
+            font-size: 16px;
+            text-transform: uppercase;
+        }
+
+        .video-link {
+            display: block;
+            font-size: 16px;
+            color: green;
+            word-wrap: break-word;
+        }
+
+        .video {
+            position: relative;
+            width: 100%;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+        }
+
+        .video-data {
+            flex-grow: 1;
+            margin-right: 10px;
+        }
+
+        .video-controls {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+            width: 75px;
+        }
+
+        .fav-button {
+            padding: 5px 10px;
+            width: 50px;
+            background-color: green;
+            color: white;
+            font-size: 16px;
+            font-weight: bold;
+        }
+
+        @media screen and (max-width: 768px) {
+            .form-container {
+                min-width: 0;
+                width: 100%;
+            }
+
+            .main-container {
+                flex-direction: column;
+            }
+
+            .movie-form-list-container, .fav-list-container {
+                max-width: none;
+                width: 100%;
+                margin-bottom: 20px;
+            }
+        }
+
+        @media screen and (max-width: 560px) {
+            .video {
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+            }
+
+            .video-controls {
+                margin-top: 20px;
+            }
+        }
+    </style>
+
+
+</head>
+<body>
+<div class="main-container">
+    <div class="movie-form-list-container">
+        <form class="form-container" method="POST" th:action="@{/api/private/add-video}" th:object="${videoForm}" >
+            <input required th:field="*{name}" type="text" id="movie_name" placeholder="Video name"/>
+            <input required th:field="*{url}" type="text" id="url" placeholder="Url"/>
+            <button class="add-video-button" type="submit" > Add Video! </button>
+        </form>
+        <hr>
+        <ul>
+            <li th:each="video : ${videos}">
+                <div class="video">
+                    <div class="video-data">
+                        <p class="video-name" th:text="${video.name}" />
+                        <a class="video-link" th:href="${video.url}" th:text="${video.url}" />
+                    </div>
+                    <div class="video-controls">
+                        <button class="fav-button"> Fav! </button>
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </div>
+    <div class="fav-list-container">
+        <p class="videos-title-text">Favourite videos</p>
+    </div>
+</div>
+</body>
+</html>

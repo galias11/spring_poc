@@ -89,6 +89,7 @@
             response.json()
                 .then(responseData => {
                     setCookie("bm_test", responseData.data.accessToken, 5);
+                    window.location = "/main";
                  });
         };
 
@@ -104,7 +105,7 @@
             const password = document.getElementById("password").value;
 
             fetch(
-                "http://localhost:8080/api/login",
+                "http://localhost:8080/api/public/login",
                 {
                     headers: {
                         "Content-Type": "application/json"

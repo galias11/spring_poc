@@ -10,6 +10,11 @@ public class Video {
     String name;
     String url;
 
+    public Video() {
+        this.name = "";
+        this.url = "";
+    }
+
     public Video(String name, String url) {
         this.name = name;
         this.url = url;
@@ -21,5 +26,13 @@ public class Video {
 
     public String getUrl() {
         return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 }

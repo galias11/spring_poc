@@ -21,7 +21,7 @@ public class UsersController {
     private UserRepository userRepository;
     private UserService userService = new UserService();
 
-    @PostMapping(path="/register", produces = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(path="/public/register", produces = MediaType.APPLICATION_JSON_VALUE)
     public @ResponseBody ResponseEntity addNewUser(@RequestBody UserForm userForm) {
         try {
             userService.saveUser(userForm);
@@ -35,7 +35,7 @@ public class UsersController {
         return (new Response(HttpStatus.OK, responseData)).getResponse();
     }
 
-    @GetMapping(path="/all")
+    @GetMapping(path="/private/all")
     public @ResponseBody Iterable<User> getAllUsers() {
         return userRepository.findAll();
     }

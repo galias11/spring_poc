@@ -6,9 +6,7 @@ import com.auth0.jwt.JWTVerifier;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import com.bm.test.bm_test.constants.Security;
-import com.bm.test.bm_test.model.User;
-import com.bm.test.bm_test.model.dto.VideoForm;
-import org.springframework.context.annotation.Bean;
+import com.bm.test.bm_test.model.entity.User;
 import org.springframework.stereotype.Component;
 import java.util.Date;
 

@@ -11,10 +11,7 @@ import java.util.List;
 // local
 import com.bm.test.bm_test.model.dto.VideoForm;
 import com.bm.test.bm_test.db.VideoRepository;
-import com.bm.test.bm_test.model.Video;
-import org.springframework.web.util.WebUtils;
-
-import javax.servlet.http.HttpServletRequest;
+import com.bm.test.bm_test.model.entity.Video;
 
 @Controller
 public class MainViewController {

@@ -1,7 +1,7 @@
 package com.bm.test.bm_test.config;
 
 // local
-import com.bm.test.bm_test.model.Message;
+import com.bm.test.bm_test.model.dto.Message;
 
 public class Messages {
     public static final Message INTERNAL_ERROR = new Message(500, "Internal server error.");

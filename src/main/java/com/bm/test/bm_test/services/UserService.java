@@ -1,7 +1,7 @@
 package com.bm.test.bm_test.services;
 
 // vendors
-import com.bm.test.bm_test.model.UserForm;
+import com.bm.test.bm_test.model.dto.UserForm;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -9,9 +9,9 @@ import org.springframework.stereotype.Service;
 // local
 import com.bm.test.bm_test.config.SpringUtils;
 import com.bm.test.bm_test.constants.Constants;
-import com.bm.test.bm_test.model.User;
+import com.bm.test.bm_test.model.entity.User;
 import com.bm.test.bm_test.db.UserRepository;
-import com.bm.test.bm_test.model.ServiceException;
+import com.bm.test.bm_test.model.dto.ServiceException;
 import com.bm.test.bm_test.config.Messages;
 
 @Service

@@ -1,6 +1,9 @@
 package com.bm.test.bm_test.services;
 
 // vendors
+import com.bm.test.bm_test.model.dto.LoginForm;
+import com.bm.test.bm_test.model.dto.ServiceException;
+import com.bm.test.bm_test.model.entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -12,9 +15,6 @@ import com.bm.test.bm_test.config.SpringUtils;
 import com.bm.test.bm_test.constants.Constants;
 import com.bm.test.bm_test.db.UserRepository;
 import com.bm.test.bm_test.config.Messages;
-import com.bm.test.bm_test.model.*;
-
-import javax.annotation.PostConstruct;
 
 @Service
 public class AuthenticationService {
@@ -40,7 +40,6 @@ public class AuthenticationService {
     public HashMap<String, String> authenticate(LoginForm loginForm)
             throws ServiceException
     {
-        System.out.println(jwtTokenProvider);
         User user = this.getUser(loginForm);
 
         if(user == null) {

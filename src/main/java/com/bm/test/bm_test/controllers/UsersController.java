@@ -2,7 +2,8 @@ package com.bm.test.bm_test.controllers;
 
 // vendors
 import com.bm.test.bm_test.config.Messages;
-import com.bm.test.bm_test.model.*;
+import com.bm.test.bm_test.model.dto.*;
+import com.bm.test.bm_test.model.entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;

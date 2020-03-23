@@ -1,4 +1,4 @@
-package com.bm.test.bm_test.model;
+package com.bm.test.bm_test.model.dto;
 
 public class ServiceException extends Exception {
     private int errorCode;

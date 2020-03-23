@@ -1,7 +1,7 @@
 package com.bm.test.bm_test.controllers;
 
 // vendors
-import org.springframework.beans.factory.annotation.Autowired;
+import com.bm.test.bm_test.model.dto.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.*;
 
 // local
 import com.bm.test.bm_test.constants.Constants;
-import com.bm.test.bm_test.model.*;
 import com.bm.test.bm_test.services.AuthenticationService;
 
 import java.util.HashMap;

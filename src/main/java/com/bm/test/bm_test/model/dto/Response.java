@@ -1,12 +1,11 @@
-package com.bm.test.bm_test.model;
+package com.bm.test.bm_test.model.dto;
 
 // vendors
-import com.fasterxml.jackson.core.JsonProcessingException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
 // locals
-import com.bm.test.bm_test.config.Messages;
+
 
 public class Response {
     private HttpStatus status;

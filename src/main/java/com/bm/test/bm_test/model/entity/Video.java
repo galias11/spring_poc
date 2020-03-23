@@ -1,4 +1,4 @@
-package com.bm.test.bm_test.model;
+package com.bm.test.bm_test.model.entity;
 
 // vendors
 import javax.persistence.Entity;

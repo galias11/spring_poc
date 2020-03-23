@@ -1,13 +1,13 @@
 package com.bm.test.bm_test.services;
 
 // vendors
-import com.bm.test.bm_test.model.Video;
+import com.bm.test.bm_test.model.entity.Video;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 // local
 import com.bm.test.bm_test.config.Messages;
-import com.bm.test.bm_test.model.ServiceException;
+import com.bm.test.bm_test.model.dto.ServiceException;
 import com.bm.test.bm_test.config.SpringUtils;
 import com.bm.test.bm_test.db.VideoRepository;
 import com.bm.test.bm_test.model.dto.VideoForm;

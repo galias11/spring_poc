@@ -153,6 +153,24 @@
         }
     </style>
 
+    <script>
+        const saveFav = videoName => {
+            console.log('banganga', videoName);
+            fetch(
+                "/api/private/fav-video",
+                {
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    method: "POST",
+                    body: JSON.stringify({
+                        videoName
+                    })
+                }
+            ).then(() => window.location.reload());
+        }
+    </script>
+
 
 </head>
 <body>
@@ -172,7 +190,7 @@
                         <a class="video-link" th:href="${video.url}" th:text="${video.url}" />
                     </div>
                     <div class="video-controls">
-                        <button class="fav-button"> Fav! </button>
+                        <button th:data-video-name="${video.name}" class="fav-button" th:onclick="saveFav(this.getAttribute('data-video-name'))"> Fav! </button>
                     </div>
                 </div>
             </li>
@@ -180,6 +198,14 @@
     </div>
     <div class="fav-list-container">
         <p class="videos-title-text">Favourite videos</p>
+        <li th:each="video : ${userVideos}">
+            <div class="video">
+                <div class="video-data">
+                    <p class="video-name" th:text="${video.name}" />
+                    <a class="video-link" th:href="${video.url}" th:text="${video.url}" />
+                </div>
+            </div>
+        </li>
     </div>
 </div>
 </body>

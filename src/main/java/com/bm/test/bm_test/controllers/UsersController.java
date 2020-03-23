@@ -36,6 +36,17 @@ public class UsersController {
         return (new Response(HttpStatus.OK, responseData)).getResponse();
     }
 
+    @PostMapping(path="/private/fav-video")
+    public String favVideo(@RequestBody FavVideoData favVideoData, @RequestAttribute("user-name") String userName) {
+        try {
+            userService.saveFavVideo(favVideoData.getVideoName(), userName);
+        } catch(ServiceException e) {
+            return "redirect:/main";
+        }
+
+        return "redirect:/main";
+    }
+
     @GetMapping(path="/private/all")
     public @ResponseBody Iterable<User> getAllUsers() {
         return userRepository.findAll();

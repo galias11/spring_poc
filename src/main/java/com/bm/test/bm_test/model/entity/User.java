@@ -14,9 +14,10 @@ public class User {
     private String lastName;
     private String password;
 
-    @ElementCollection
-    @CollectionTable(name ="user_videos" , joinColumns=@JoinColumn(name="userName"))
-    @Column(name="url")
+    @ManyToMany
+    @JoinTable(name ="user_videos" ,
+            joinColumns=@JoinColumn(name="userName"),
+            inverseJoinColumns = @JoinColumn(name="videoName"))
     private List<Video> favVideos = new ArrayList<Video>();
 
     public User() {

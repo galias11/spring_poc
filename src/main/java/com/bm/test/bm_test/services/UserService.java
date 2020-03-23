@@ -1,8 +1,9 @@
 package com.bm.test.bm_test.services;
 
 // vendors
+import com.bm.test.bm_test.db.VideoRepository;
 import com.bm.test.bm_test.model.dto.UserForm;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.bm.test.bm_test.model.entity.Video;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -16,12 +17,13 @@ import com.bm.test.bm_test.config.Messages;
 
 @Service
 public class UserService {
-    @Autowired
     private UserRepository userRepository;
+    private VideoRepository videoRepository;
     private final BCryptPasswordEncoder pwdEncoder;
 
     public UserService() {
         this.userRepository = SpringUtils.CONTEXT.getBean(UserRepository.class);
+        this.videoRepository = SpringUtils.CONTEXT.getBean(VideoRepository.class);
         this.pwdEncoder = new BCryptPasswordEncoder(Constants.PASSWORD_STRING);
     }
 
@@ -45,5 +47,15 @@ public class UserService {
         }
 
         this.userRepository.save(newUser);
+    }
+
+    public void saveFavVideo(String videoName, String userName)
+        throws ServiceException {
+        User user = this.userRepository.findUserById(userName);
+        Video video = this.videoRepository.findVideoByName(videoName);
+
+        user.addFavourite(video);
+
+        this.userRepository.save(user);
     }
 }
